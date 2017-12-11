@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import SearchResults from '../SearchResults/SearchResults'
-import logo from './logo.svg';
 import './App.css';
-import Spotify from ' ./util/Spotify';
+import Spotify from '../../util/Spotify';
+import Playlist from '../Playlist/Playlist';
+import SearchBar from '../SearchBar/SearchBar';
 
-class App extends Component {
-      constructor (props) {
-      super (props);
+  class App extends Component {
+     constructor(props) {
+      super(props);
       this.state = {
       "searchResults": [],
-      "playListName": "Despacito",
-      "playlistTracks": []
+      "playlistName": "New Playlist",
+      "playlistTracks": [],
     }
       this.addTrack = this.addTrack.bind(this);
       this.removeTrack = this.removeTrack.bind(this);
@@ -29,13 +30,12 @@ class App extends Component {
     }
     }
 
-  removeTrack(track) {
+   removeTrack(track) {
     let tracks = this.state.playlistTracks;
-    if (index !== -1) { 
-        this.state.playlistTracks.splice(index, 1);
-        this.setState({ playlistTracks: this.state.playlistTracks, });
-    }
-    }
+    let newTracks = tracks.filter(trackIndex => trackIndex.id !== track.id);
+    this.setState({playlistTracks: newTracks});
+
+  }
 
   updatePlaylistName(name) {
         this.setState({ playlistName: name });
@@ -60,7 +60,7 @@ class App extends Component {
     <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
-      <SearchBar onSearch ={this.search}/>
+      <SearchBar onSearch={this.search} connected={this.state.connected}/>
       <div className="App-playlist">
       <SearchResults searchResults={this.state.searchResults}/>
       <Playlist onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onSave={this.savePlaylist}/>
