@@ -13,13 +13,16 @@ class App extends Component {
     }
       this.addTrack = this.addTrack.bind(this);
       this.removeTrack = this.removeTrack.bind(this);
+      this.updatePlaylistName = this.updatePlaylistName.bind(this);
+      this.savePlaylist = this.savePlaylist.bind(this);
+
   }
   
   addTrack (track) {
     if (this.state.playlist.indexOf(track) === -1) {
         this.setState({playlist: this.state.playlist.concat(track)});
     }
-  }
+    }
 
 
   addTrack(track) {
@@ -30,13 +33,34 @@ class App extends Component {
     }
     }
 
-    removeTrack(track) {
+  removeTrack(track) {
     let tracks = this.state.playlistTracks;
     if (index !== -1) { 
         this.state.playlistTracks.splice(index, 1);
         this.setState({ playlistTracks: this.state.playlistTracks, });
     }
     }
+
+  updatePlaylistName(name){
+        this.setState({ playlistName: name });
+    }
+
+  savePlaylist (){
+    let trackURIs = [];
+        this.state.playlistTracks.forEach(track => {
+        if (track.uri){
+        trackURIs.push(track.uri)
+      }
+    });
+    if (trackURIs.length>0){ // will not save an empty playlist
+      Spotify.savePlaylist(this.state.playlistName, trackURIs);
+      this.setState({ playlistName: 'New Playlist', playlistTracks: [], });
+    }else{
+      alert("Playlist is empty.");
+    }
+    }
+
+
 
   render() {
 
@@ -46,8 +70,8 @@ class App extends Component {
       <div className="App">
       <SearchBar />
       <div className="App-playlist">
-      <SearchResults searchResults = {this.state.searchResults}/>
-      <Playlist onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+      <SearchResults searchResults={this.state.searchResults}/>
+      <Playlist onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onSave={this.savePlaylist}/>
       </div>
       </div>
     </div>
