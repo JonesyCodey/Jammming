@@ -5,7 +5,7 @@ import Spotify from '../../util/Spotify';
 import Playlist from '../Playlist/Playlist';
 import SearchBar from '../SearchBar/SearchBar';
 
-  class App extends Component {
+  class App extends React.Component {
      constructor(props) {
       super(props);
 
