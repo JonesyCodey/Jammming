@@ -70,8 +70,14 @@ import SearchBar from '../SearchBar/SearchBar';
               searchResults={this.state.searchResults}
               onAdd={this.addTrack}
               isRemoval={false}
-            />
-      <Playlist onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onSave={this.savePlaylist}/>
+          />
+      <Playlist    playlistName={this.state.playlistName}
+              onNameChange={this.updatePlaylistName}
+              playlistTracks={this.state.playlistTracks}
+              onRemove={this.removeTrack}
+              onSave={this.savePlaylist}
+              isRemoval={true}
+              />
       </div>
       </div>
     </div>
