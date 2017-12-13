@@ -20,7 +20,7 @@ import SearchBar from '../SearchBar/SearchBar';
       this.updatePlaylistName = this.updatePlaylistName.bind(this);
       this.savePlaylist = this.savePlaylist.bind(this);
       this.search = this.search.bind(this);
-
+}
   
   
 
@@ -52,7 +52,7 @@ import SearchBar from '../SearchBar/SearchBar';
       playlistName: 'New Playlist'
     })
   }
-} // closing bracket moved from after binds to here 
+
 
   search(searchTerm){
       Spotify.search(searchTerm).then(tracks => this.setState({searchResults: tracks}) );
