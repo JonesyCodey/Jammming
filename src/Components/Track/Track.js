@@ -1,23 +1,14 @@
 import React from 'react';
 import './Track.css';
 
-
 class Track extends React.Component {
-	constructor (props) {
-		super (props);
-		this.addTrack = this.addTrack.bind(this);
-		this.removeTrack = this.removeTrack.bind(this);
+  constructor(props) {
+    super(props);
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+  }
 
-	}
-
-	 addTrack(){
-    	this.props.onAdd(this.props.track);
-    }
-     removeTrack(){
-    	this.props.onRemove(this.props.track);
-	}
-
-	  renderAction() {
+  renderAction() {
     if (this.props.isRemoval) {
       return (
         <a className="Track-action" onClick={this.removeTrack}>-</a>
@@ -29,7 +20,15 @@ class Track extends React.Component {
     }
   }
 
-	 render() {
+  addTrack(event) {
+    this.props.onAdd(this.props.track);
+  }
+
+  removeTrack(event) {
+    this.props.onRemove(this.props.track);
+  }
+
+  render() {
     return (
       <div className="Track">
         <div className="Track-information">
@@ -43,5 +42,4 @@ class Track extends React.Component {
 }
 
 export default Track;
-
 
